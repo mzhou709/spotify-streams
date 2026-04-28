@@ -1,7 +1,7 @@
 # Spotify Streams Prediction 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mzhou709/spotify-streams/blob/main/spotify_proj_code.ipynb) 
 
 Predicting Spotify streaming performance from audio features and platform exposure metrics across 953 tracks. A tuned Random Forest achieved the best out-of-sample performance (RMSE 0.516, MAE 0.403, R² 0.736).
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mzhou709/spotify-streams/blob/main/spotify_proj_code.ipynb) 
 
 ## Overview
 
