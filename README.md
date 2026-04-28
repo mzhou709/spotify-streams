@@ -1,10 +1,8 @@
-# Spotify Streams Prediction
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mzhou709/spotify-streams/blob/main/spotify_proj_code.ipynb) 
-
-[📄 Report](spotify_proj.pdf)
+# Spotify Streams Prediction 
 
 Predicting Spotify streaming performance from audio features and platform exposure metrics across 953 tracks. A tuned Random Forest achieved the best out-of-sample performance (RMSE 0.516, MAE 0.403, R² 0.736).
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mzhou709/spotify-streams/blob/main/spotify_proj_code.ipynb) 
 
 ## Overview
 
@@ -32,7 +30,9 @@ Python, pandas, NumPy, scikit-learn, XGBoost, statsmodels, matplotlib, seaborn
 - **Multicollinearity in audio features:** VIF analysis revealed high collinearity among `released_year` (VIF ~100), `danceability_%`, and `energy_%`, leading to a reduced feature set for linear models
 - **Viral hits are hard to predict:** All models consistently underpredicted the highest-stream songs — external signals like TikTok virality, film/TV placements, and radio play are absent from the dataset. Ed Sheeran, Kendrick Lamar, and Labrinth had the highest per-artist prediction error
 
-
 ## Data
 
 Download the dataset from [Kaggle](https://www.kaggle.com/datasets/abdulszz/spotify-most-streamed-songs) and place the CSV in the `data/` folder.
+
+## Full report
+[📄 Report](spotify_proj.pdf)
