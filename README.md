@@ -1,20 +1,17 @@
-# Spotify Streams Prediction 
+# Spotify Streams Prediction
 
-Predicting Spotify streaming performance from audio features and platform exposure metrics across 953 tracks. A tuned Random Forest achieved the best out-of-sample performance (RMSE 0.516, MAE 0.403, R² 0.736).
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://YOUR-APP.streamlit.app)
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/mzhou709/spotify-streams/blob/main/spotify_proj_code.ipynb) 
+Predicting Spotify streaming performance (log-transformed stream counts) from audio features and platform exposure metrics across 953 tracks. Best model: tuned Random Forest (R² = 0.736).
 
-## Overview
+## Key Findings
 
-- **Goal:** Predict log-transformed stream counts using audio characteristics (danceability, energy, BPM, valence, etc.) and platform exposure metrics (playlist and chart appearances across Spotify, Apple Music, Deezer, and Shazam)
-- **Dataset:** [Most Streamed Spotify Songs 2023](https://www.kaggle.com/datasets/abdulszz/spotify-most-streamed-songs) — 953 tracks, 25 features
-- **Target:** `log(1 + streams)` — log-transformed to compress right skew and improve model stability
+- **Platform exposure dominates:** Spotify, Apple, and Deezer playlist counts were the top predictors by a wide margin — songs on more playlists stream significantly more regardless of audio characteristics
+- **Nonlinear models win:** Random Forest (R² 0.736) substantially outperformed all linear models (~0.48) — streaming success depends on feature interactions linear models can't capture
+- **Multicollinearity in audio features:** VIF analysis flagged `released_year` (VIF ~100) and several correlated audio features; dropped from linear models, kept for tree-based
+- **Viral hits resist prediction:** Systematic underprediction for Ed Sheeran, Kendrick Lamar, and Labrinth — TikTok virality, sync placements, and radio play are absent from the dataset
 
-## Tech Stack
-
-Python, pandas, NumPy, scikit-learn, XGBoost, statsmodels, matplotlib, seaborn
-
-## Models Compared
+## Model Comparison
 
 | Model | RMSE | MAE | R² |
 |---|---|---|---|
@@ -23,16 +20,22 @@ Python, pandas, NumPy, scikit-learn, XGBoost, statsmodels, matplotlib, seaborn
 | Elastic Net | 0.719 | 0.589 | 0.489 |
 | Linear Regression | 0.723 | 0.577 | 0.483 |
 
-## Key Findings
+## Project Structure
 
-- **Platform exposure dominates:** Spotify, Deezer, and Apple playlist counts were the top predictors in both linear coefficients and Random Forest feature importances — songs on more playlists stream significantly more
-- **Nonlinear models win:** Random Forest substantially outperformed all linear models (R² 0.736 vs ~0.49), indicating that streaming success depends on feature interactions that linear models cannot capture (e.g., high playlist count combined with high danceability compounding engagement)
-- **Multicollinearity in audio features:** VIF analysis revealed high collinearity among `released_year` (VIF ~100), `danceability_%`, and `energy_%`, leading to a reduced feature set for linear models
-- **Viral hits are hard to predict:** All models consistently underpredicted the highest-stream songs — external signals like TikTok virality, film/TV placements, and radio play are absent from the dataset. Ed Sheeran, Kendrick Lamar, and Labrinth had the highest per-artist prediction error
+| File | Description |
+|---|---|
+| `analysis.ipynb` | Full analysis: cleaning, VIF, modeling, tuning, error analysis |
+| `app.py` | Streamlit prediction demo |
+| `model/rf_pipeline.pkl` | Saved Random Forest pipeline (run notebook to generate) |
+
+## Setup
+
+```bash
+pip install -r requirements.txt
+streamlit run app.py
+# or: jupyter notebook analysis.ipynb
+```
 
 ## Data
 
-Download the dataset from [Kaggle](https://www.kaggle.com/datasets/abdulszz/spotify-most-streamed-songs) and place the CSV in the `data/` folder.
-
-## Full report
-[📄 Report](spotify_proj.pdf)
+Download [Most Streamed Spotify Songs 2023](https://www.kaggle.com/datasets/abdulszz/spotify-most-streamed-songs) from Kaggle and place `Popular_Spotify_Songs.csv` in the `data/` folder.
