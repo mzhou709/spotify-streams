@@ -88,27 +88,18 @@ df_input = pd.DataFrame([input_data])[column_order]
 log_pred = model.predict(df_input)[0]
 predicted_streams = np.expm1(log_pred)
 
-# --- Percentile thresholds ---
-P25 = 50_000_000
-P50 = 200_000_000
-P75 = 500_000_000
-P90 = 1_000_000_000
+PERCENTILE_TIERS = [
+    (1_000_000_000, "top 10%",    "Potential viral hit"),
+    (500_000_000,   "top 25%",    "Major commercial hit"),
+    (200_000_000,   "top 50%",    "Solid chart performer"),
+    (50_000_000,    "top 75%",    "Mid-tier track"),
+    (0,             "bottom 25%", "Niche / catalog track"),
+]
 
-if predicted_streams >= P90:
-    percentile_text = "Approximately top 10% of songs in the dataset"
-    label = "Potential viral hit"
-elif predicted_streams >= P75:
-    percentile_text = "Approximately top 25% of songs in the dataset"
-    label = "Major commercial hit"
-elif predicted_streams >= P50:
-    percentile_text = "Approximately top 50% of songs in the dataset"
-    label = "Solid chart performer"
-elif predicted_streams >= P25:
-    percentile_text = "Approximately top 75% of songs in the dataset"
-    label = "Mid-tier track"
-else:
-    percentile_text = "Approximately bottom 25% of songs in the dataset"
-    label = "Niche / catalog track"
+for threshold, pct, label in PERCENTILE_TIERS:
+    if predicted_streams >= threshold:
+        percentile_text = f"Approximately {pct} of songs in the dataset"
+        break
 
 # --- Display ---
 st.metric("Predicted Streams", f"{int(predicted_streams):,}")
