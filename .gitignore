@@ -219,3 +219,6 @@ __marimo__/
 
 # CSV files
 *.csv
+
+# School report — keep locally, exclude from repo
+spotify_proj.pdf
