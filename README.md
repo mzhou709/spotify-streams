@@ -1,6 +1,6 @@
 # Spotify Streams Prediction
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://YOUR-APP.streamlit.app)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://spotify-streams-predictor.streamlit.app/)
 
 Predicting Spotify streaming performance (log-transformed stream counts) from audio features and platform exposure metrics across 953 tracks. Best model: tuned Random Forest (R² = 0.736).
 
