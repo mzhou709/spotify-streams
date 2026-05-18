@@ -225,3 +225,8 @@ spotify_proj.pdf
 
 # IDE virtual documents
 .virtual_documents/
+
+# Claude Code
+.claude/
+CLAUDE.md
+docs/
