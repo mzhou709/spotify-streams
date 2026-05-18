@@ -222,3 +222,6 @@ __marimo__/
 
 # School report — keep locally, exclude from repo
 spotify_proj.pdf
+
+# IDE virtual documents
+.virtual_documents/
